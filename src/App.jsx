@@ -13,18 +13,28 @@ export default function App() {
                       title: "運動30分鐘",
                       done: false,
                       dueDate: "2025-07-10",
+                      category: "健康",
                   },
                   {
                       id: 2,
                       title: "閱讀一本書",
                       done: false,
                       dueDate: "2025-07-12",
+                      category: "學習",
                   },
               ];
     });
 
     const [newTask, setNewTask] = useState("");
     const [newDueDate, setNewDueDate] = useState("");
+    const [newCategory, setNewCategory] = useState("其他");
+    const categories = ["健康", "學習", "工作", "其他"];
+    const [filterCategory, setFilterCategory] = useState("全部");
+
+    const isFormValid =
+        newTask.trim() !== "" &&
+        newDueDate.trim() !== "" &&
+        newCategory.trim() !== "";
 
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -35,19 +45,23 @@ export default function App() {
     };
 
     const addTask = () => {
-        if (newTask.trim() === "") return;
+        if (!isFormValid) {
+            alert("請填寫所有欄位：任務名稱、截止日與分類");
+            return;
+        }
 
         const task = {
             id: tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1,
             title: newTask.trim(),
             done: false,
-            dueDate: newDueDate || "",
-            category: newCategory || "其他",
+            dueDate: newDueDate,
+            category: newCategory,
         };
 
         setTasks([...tasks, task]);
         setNewTask("");
         setNewDueDate("");
+        setNewCategory("其他");
     };
 
     const handleKeyPress = (e) => {
@@ -88,7 +102,6 @@ export default function App() {
         else if (e.key === "Escape") setEditingId(null);
     };
 
-    // 判斷是否過期
     const isOverdue = (dueDate) => {
         if (!dueDate) return false;
         return (
@@ -96,17 +109,11 @@ export default function App() {
         );
     };
 
-    // 按截止日期排序
     const sortedTasks = [...tasks].sort((a, b) => {
         if (!a.dueDate) return 1;
         if (!b.dueDate) return -1;
         return a.dueDate.localeCompare(b.dueDate);
     });
-
-    const [newCategory, setNewCategory] = useState("其他"); // 預設分類
-    const categories = ["健康", "學習", "工作", "其他"];
-
-    const [filterCategory, setFilterCategory] = useState("全部");
 
     return (
         <div className="container">
@@ -124,13 +131,11 @@ export default function App() {
                     type="date"
                     value={newDueDate}
                     onChange={(e) => setNewDueDate(e.target.value)}
-                    style={{ marginLeft: "0.5rem" }}
                 />
                 <select
                     value={newCategory}
                     onChange={(e) => setNewCategory(e.target.value)}
                     className="category-select"
-                    style={{ marginLeft: "0.5rem" }}
                 >
                     {categories.map((cat) => (
                         <option key={cat} value={cat}>
@@ -139,24 +144,23 @@ export default function App() {
                     ))}
                 </select>
 
-                <button onClick={addTask}>新增任務</button>
+                <button onClick={addTask} disabled={!isFormValid}>
+                    新增任務
+                </button>
             </div>
-            <div style={{ marginBottom: "1rem" }}>
-                <label htmlFor="categoryFilter">篩選分類：</label>
-                <select
-                    id="categoryFilter"
-                    value={filterCategory}
-                    onChange={(e) => setFilterCategory(e.target.value)}
-                    className="category-select"
-                    style={{ marginLeft: "0.5rem" }}
-                >
-                    <option value="全部">全部</option>
-                    {categories.map((cat) => (
-                        <option key={cat} value={cat}>
-                            {cat}
-                        </option>
-                    ))}
-                </select>
+
+            <div className="filter-buttons">
+                {["全部", ...categories].map((cat) => (
+                    <button
+                        key={cat}
+                        className={`filter-btn ${
+                            filterCategory === cat ? "active" : ""
+                        }`}
+                        onClick={() => setFilterCategory(cat)}
+                    >
+                        {cat}
+                    </button>
+                ))}
             </div>
 
             <ul className="task-list">
@@ -178,24 +182,28 @@ export default function App() {
                                     checked={task.done}
                                     onChange={() => toggleTask(task.id)}
                                 />
+                                <span className="checkbox-custom"></span>
+
                                 {editingId !== task.id && (
-                                    <span
-                                        style={{
-                                            color: isOverdue(task.dueDate)
-                                                ? "red"
-                                                : "inherit",
-                                        }}
-                                    >
+                                    <span className="task-text">
                                         {task.title}{" "}
                                         {task.dueDate && (
-                                            <small>
+                                            <span
+                                                className={`task-date ${
+                                                    isOverdue(task.dueDate)
+                                                        ? "overdue"
+                                                        : ""
+                                                }`}
+                                            >
                                                 （截止：{task.dueDate}）
-                                            </small>
+                                            </span>
                                         )}
                                         {task.category && (
-                                            <small className="category-label">
-                                                [{task.category}]
-                                            </small>
+                                            <span
+                                                className={`tag tag-${task.category}`}
+                                            >
+                                                {task.category}
+                                            </span>
                                         )}
                                     </span>
                                 )}
@@ -232,14 +240,12 @@ export default function App() {
                                         <button
                                             onClick={() => startEditing(task)}
                                             className="edit-btn"
-                                            type="button"
                                         >
                                             編輯
                                         </button>
                                         <button
                                             onClick={() => deleteTask(task.id)}
                                             className="delete-btn"
-                                            type="button"
                                         >
                                             刪除
                                         </button>
@@ -248,7 +254,6 @@ export default function App() {
                                     <button
                                         onClick={finishEditing}
                                         className="save-btn"
-                                        type="button"
                                     >
                                         儲存
                                     </button>
