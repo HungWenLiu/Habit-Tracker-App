@@ -1,0 +1,126 @@
+.habit-heatmap {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.habit-heatmap h3 {
+  margin: 0 0 1rem 0;
+  color: #1f2937;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.heatmap-container {
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+/* 熱力圖顏色樣式 */
+.react-calendar-heatmap .color-empty {
+  fill: #ebedf0;
+}
+
+.react-calendar-heatmap .color-scale-1 {
+  fill: #c6e48b;
+}
+
+.react-calendar-heatmap .color-scale-2 {
+  fill: #7bc96f;
+}
+
+.react-calendar-heatmap .color-scale-3 {
+  fill: #239a3b;
+}
+
+.react-calendar-heatmap .color-scale-4 {
+  fill: #196127;
+}
+
+.react-calendar-heatmap .color-completed {
+  fill: #40c463;
+}
+
+/* 圖例樣式 */
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.legend-colors {
+  display: flex;
+  gap: 2px;
+}
+
+.legend-colors > div {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legend-label {
+  font-size: 0.75rem;
+}
+
+/* 個別習慣熱力圖 */
+.individual-heatmaps {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.individual-heatmaps h4 {
+  margin: 0 0 1rem 0;
+  color: #374151;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.individual-heatmap {
+  margin-bottom: 1.5rem;
+}
+
+.individual-heatmap h5 {
+  margin: 0 0 0.5rem 0;
+  color: #4b5563;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .habit-heatmap {
+    padding: 1rem;
+  }
+  
+  .heatmap-container {
+    font-size: 0.75rem;
+  }
+  
+  .individual-heatmaps {
+    display: none; /* 在小螢幕上隱藏個別熱力圖 */
+  }
+}
+
+/* 熱力圖文字樣式 */
+.react-calendar-heatmap text {
+  font-size: 10px;
+  fill: #6b7280;
+}
+
+.react-calendar-heatmap .react-calendar-heatmap-month-label {
+  font-size: 12px;
+  fill: #374151;
+}
+
+.react-calendar-heatmap .react-calendar-heatmap-weekday-label {
+  font-size: 10px;
+  fill: #6b7280;
+}
