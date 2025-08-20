@@ -1,0 +1,166 @@
+.task-item {
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+  cursor: grab;
+}
+
+.task-item:hover {
+  border-color: #cbd5e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-item:active {
+  cursor: grabbing;
+}
+
+.task-label {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
+}
+
+.task-label.done .task-text {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.checkbox-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cbd5e0;
+  border-radius: 4px;
+  margin-right: 0.75rem;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.task-label input[type="checkbox"] {
+  display: none;
+}
+
+.task-label input[type="checkbox"]:checked + .checkbox-custom {
+  background-color: #48bb78;
+  border-color: #48bb78;
+}
+
+.task-label input[type="checkbox"]:checked + .checkbox-custom::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.task-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.task-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.task-date.overdue {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.tag-健康 { background-color: #dcfce7; color: #166534; }
+.tag-學習 { background-color: #dbeafe; color: #1e40af; }
+.tag-工作 { background-color: #fef3c7; color: #92400e; }
+.tag-其他 { background-color: #f3e8ff; color: #7c3aed; }
+
+.streak-badge {
+  background: linear-gradient(135deg, #ff6b6b, #ffa726);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.edit-inputs {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+  margin-right: 1rem;
+}
+
+.edit-input {
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.btn-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-btn, .delete-btn, .save-btn {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-btn {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #2563eb;
+}
+
+.delete-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #dc2626;
+}
+
+.save-btn {
+  background-color: #10b981;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #059669;
+}
